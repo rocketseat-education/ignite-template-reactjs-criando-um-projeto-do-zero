@@ -262,7 +262,7 @@ describe('Post', () => {
   });
 
   it('should be able to render loading message if fallback', () => {
-    mockedUseRouter.mockReturnValueOnce({
+    mockedUseRouter.mockReturnValue({
       isFallback: true,
     });
 
