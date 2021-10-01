@@ -1,1 +1,23 @@
-// TODO
+.container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2rem 5rem;
+
+    svg {
+        height: 20px;
+        width: 20px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--white-200);
+        padding-bottom: 0.5rem;
+    }
+
+    p {
+        font-size: 1.125rem;
+        color: var(--gray-200);
+    }
+
+}

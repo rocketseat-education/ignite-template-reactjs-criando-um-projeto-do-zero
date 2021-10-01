@@ -1,25 +1,21 @@
 .container {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 2rem 5rem;
-
     .buttonMorePosts {
         color: var(--pink-500);
         font-weight: 600;
         display: inline-block;
         line-height: 1.36125rem;
-        margin: 2rem 0;
+        margin: 4rem 0;
         transition: 0.2s;
         &:hover{
             filter: brightness(0.9);
         }
     }
-
     .post{
         ~ article{
             margin-top: 2rem;
         }
         a {
+            
             h1{
                 transition: 0.3s;
             }
@@ -30,28 +26,6 @@
             }
         }
     }
-    .logo {
-        margin: 3rem 0;
-    }
-
-    h1 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: var(--white-200);
-        padding-bottom: 0.3rem;
-    }
-
-    p {
-        font-size: 1.125rem;
-        color: var(--gray-200);
-    }
-
-    time, .author > p {
-        font-size: 0.875rem;
-        color: var(--gray-200);
-        padding-left: 0.5rem;
-    }
-    
     .postInfos {
         display: flex;
         flex-direction: row;
@@ -60,10 +34,17 @@
             padding-left: 1.5rem;
         }
     }
+
     .author, .updatedAt {
         display: flex;
         flex-direction: row;
         align-items: center;
         line-height: 2.25rem;
+    }
+    
+    time, .author > p {
+        font-size: 0.875rem;
+        color: var(--gray-200);
+        padding-left: 0.5rem;
     }
 }

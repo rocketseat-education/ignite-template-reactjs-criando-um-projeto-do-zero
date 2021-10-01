@@ -1,1 +1,27 @@
-// TODO
+.post {
+    .author, .updatedAt {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        line-height: 2.25rem;
+    }
+    
+    time, .author > p {
+        font-size: 0.875rem;
+        color: var(--gray-200);
+        padding-left: 0.5rem;
+    }
+
+    .postInfos {
+        display: flex;
+        flex-direction: row;
+        margin-top: 1rem;
+        .author {
+            padding-left: 1.5rem;
+        }
+    }
+
+    // .title {
+    //     font-size: 3rem;
+    // }
+}
