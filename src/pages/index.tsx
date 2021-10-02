@@ -82,9 +82,11 @@ export const getStaticProps: GetStaticProps = async () => {
         'posts.title',
         'posts.subtitle',
         'posts.author',
+        'posts.uid',
       ]
     }
   );
+  // console.log(postsResponse)
   const props: HomeProps = {
     postsPagination:{
       next_page:postsResponse.next_page,
@@ -101,10 +103,14 @@ export const getStaticProps: GetStaticProps = async () => {
             locale: ptBR,
             
           }
-        ).split(' ').map((item,index)=> index === 1 ? `${item[0].toLocaleUpperCase()}${item[1]}${item[2]}` : item).join(' '),
+        ),
+        // .split(' ').map((item,index)=> index === 1 ? `${item[0].toLocaleUpperCase()}${item[1]}${item[2]}` : item).join(' '),
+        // first_publication_date: new Date(post.first_publication_date).toISOString(),
         uid:post.uid,
       }))
     }
   }
+  console.log(JSON.stringify(props, null, 2));
+  
   return {props}
 };
