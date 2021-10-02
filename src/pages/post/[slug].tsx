@@ -109,13 +109,16 @@ export const getStaticProps:GetStaticProps = async ({params}) => {
         banner:response.data.banner,
         content: response.data.content,
       },
-      first_publication_date:format(
-        new Date(response.first_publication_date),
-        "dd LLL yyyy",
-        {
-          locale: ptBR,
-        }
-      ).split(' ').map((item,index)=> index === 1 ? `${item[0].toLocaleUpperCase()}${item[1]}${item[2]}` : item).join(' ')
+      first_publication_date: new Date(response.first_publication_date).toISOString(),
+      
+      
+      // first_publication_date:format(
+      //   new Date(response.first_publication_date),
+      //   "dd LLL yyyy",
+      //   {
+      //     locale: ptBR,
+      //   }
+      // ).split(' ').map((item,index)=> index === 1 ? `${item[0].toLocaleUpperCase()}${item[1]}${item[2]}` : item).join(' ')
     }
   }
   return {props}

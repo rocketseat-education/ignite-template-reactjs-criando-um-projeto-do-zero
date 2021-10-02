@@ -1,5 +1,6 @@
 .container {
     .buttonMorePosts {
+        cursor: pointer;
         color: var(--pink-500);
         font-weight: 600;
         display: inline-block;
@@ -15,7 +16,6 @@
             margin-top: 2rem;
         }
         a {
-            
             h1{
                 transition: 0.3s;
             }

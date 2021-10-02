@@ -11,6 +11,7 @@ import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import { useEffect, useState } from 'react';
 
 interface Post {
   uid?: string;
@@ -32,7 +33,31 @@ interface HomeProps {
 }
 
 export default function Home({postsPagination}: HomeProps) {
-  const {results, next_page} = postsPagination
+  
+  const [posts, setPosts] = useState<Post[]>([] as Post[])
+  const [nextPage, setNextPage] = useState<string | null>("")
+
+  useEffect(()=> {
+    setNextPage(postsPagination?.next_page)
+    setPosts(postsPagination?.results)
+  },[postsPagination?.results])
+
+  async function handleLoadMorePosts(){
+    if(nextPage){
+      try {
+        const response: PostPagination = await (await fetch(nextPage)).json()
+        console.log(response.next_page);
+        
+        setPosts([...posts, ...response?.results])
+        setNextPage(response.next_page)
+        return 
+        
+      } catch (error) {
+        alert(error)        
+      }
+    }
+    alert('Erro ao fazer a requisição!')
+  }
   return (
     <>
       <Head>
@@ -41,7 +66,7 @@ export default function Home({postsPagination}: HomeProps) {
       <main className={commonStyles.container}>
         <Header/>
         <div className={styles.container}>
-          {results.map(({data, first_publication_date,uid}) => (
+          {posts.map(({data, first_publication_date,uid}) => (
             <article key={uid} className={styles.post}>
               <Link href={`/post/${uid}`}>
                 <a>
@@ -50,7 +75,14 @@ export default function Home({postsPagination}: HomeProps) {
                   <div className={styles.postInfos}>
                     <div className={styles.updatedAt}>
                       <FiCalendar className={styles.icon}/>
-                      <time>{first_publication_date}</time>
+                      <time>{format(
+                        new Date(first_publication_date),
+                        "dd LLL yyyy",
+                        {
+                          locale: ptBR,
+                          
+                        }
+                      )}</time>
                     </div>
                     <div className={styles.author}>
                       <FiUser className={styles.icon}/>
@@ -61,8 +93,8 @@ export default function Home({postsPagination}: HomeProps) {
               </Link>
             </article>
           ))}
-          {!!next_page && (
-            <a href="" className={styles.buttonMorePosts}>
+          {!!nextPage && (
+            <a onClick={handleLoadMorePosts} className={styles.buttonMorePosts}>
               Carregar mais posts
             </a>
           )}
@@ -83,10 +115,10 @@ export const getStaticProps: GetStaticProps = async () => {
         'posts.subtitle',
         'posts.author',
         'posts.uid',
-      ]
+      ],
+      pageSize:1
     }
   );
-  // console.log(postsResponse)
   const props: HomeProps = {
     postsPagination:{
       next_page:postsResponse.next_page,
@@ -96,16 +128,7 @@ export const getStaticProps: GetStaticProps = async () => {
           subtitle: post.data.subtitle,
           author: post.data.author,
         },
-        first_publication_date: format(
-          new Date(post.last_publication_date),
-          "dd LLL yyyy",
-          {
-            locale: ptBR,
-            
-          }
-        ),
-        // .split(' ').map((item,index)=> index === 1 ? `${item[0].toLocaleUpperCase()}${item[1]}${item[2]}` : item).join(' '),
-        // first_publication_date: new Date(post.first_publication_date).toISOString(),
+        first_publication_date: post.first_publication_date,
         uid:post.uid,
       }))
     }
