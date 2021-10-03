@@ -5,9 +5,7 @@ import styles from './header.module.scss'
 export default function Header() {
   return (
     <Link href="/">
-      <a>
-        <img className={styles.logo} src="/logo.svg" alt="logo" />
-      </a>
+      <img className={styles.logo} src="/logo.svg" alt="logo" />
     </Link>
   )
 }

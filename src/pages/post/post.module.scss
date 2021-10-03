@@ -21,7 +21,36 @@
         }
     }
 
-    // .title {
-    //     font-size: 3rem;
-    // }
+    .title {
+        font-size: 3rem;
+    }
+
+    .content {
+        margin-top: 1rem;
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--white-200);
+            padding: 1.5rem 0;
+        }
+        p {
+            margin: 1rem 0;
+        }
+    }
+}
+
+.header {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0rem 5rem;
+}
+
+.banner {
+    display: block;
+    width: 100%;    
+    max-width: 1120px;
+    img {
+        object-fit: cover;
+    }
+    
 }
