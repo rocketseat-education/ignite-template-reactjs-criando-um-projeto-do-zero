@@ -19,5 +19,28 @@
         font-size: 1.125rem;
         color: var(--gray-200);
     }
+}
+
+.preview{
+    width: 100%;
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--black-500);
+    background: var(--white-200);
+    margin: 5rem 0;
+    a {
+        display: inline-block;
+        width: 100%;
+        line-height: 1.375rem;
+        height: 100%;
+        padding: 1rem 0;
+        text-decoration: none;
+    }
+    transition: 0.5s;
+    &:hover{
+        filter: brightness(0.9);
+    }
+
 
 }

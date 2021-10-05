@@ -44,7 +44,8 @@ interface PostProps {
   prevPost: {
     title: string,
     slug: string,
-  }| false
+  }| false,
+  preview: boolean
 }
 
 export default function Post(props: PostProps) {
@@ -54,7 +55,7 @@ export default function Post(props: PostProps) {
   }else{
     const {author, banner, content, title} = props?.post?.data
     const {first_publication_date, last_publication_date} = props?.post
-    const {nextPost, prevPost} = props
+    const {nextPost, prevPost, preview} = props
     const [lectureTime, setLectureTime] = useState(0)
     console.log(last_publication_date);
     
@@ -164,6 +165,13 @@ export default function Post(props: PostProps) {
             )}
           </nav>
           <Comments/>
+          {preview && (
+            <aside className={commonStyles.preview}>
+              <Link href="/api/exit-preview">
+                <a>Sair do modo Preview</a>
+              </Link>
+            </aside>
+          )}
         </main>
       </>
     )
@@ -190,10 +198,10 @@ export const getStaticPaths:GetStaticPaths = async () => {
   }
 };
 
-export const getStaticProps:GetStaticProps = async ({params}) => {
+export const getStaticProps:GetStaticProps = async ({params, preview = false, previewData}) => {
   try {
     const prismic = getPrismicClient();
-    const response = await prismic.getByUID('posts', `${params.slug}`, {});
+    const response = await prismic.getByUID('posts', `${params.slug}`, {ref: previewData?.ref ?? null});
     const prevPost = (await prismic.query(
       Prismic.Predicates.at('document.type', 'posts'),
       {
@@ -236,7 +244,8 @@ export const getStaticProps:GetStaticProps = async ({params}) => {
           title:nextPost?.data?.title,
           slug: nextPost?.uid
         }
-      : false
+      : false,
+      preview
     }
     console.log(props);
     
