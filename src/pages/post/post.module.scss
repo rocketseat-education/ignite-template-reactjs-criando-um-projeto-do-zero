@@ -42,7 +42,7 @@
 .header {
     max-width: 1120px;
     margin: 0 auto;
-    padding: 0rem 5rem;
+    padding: 0rem 3rem;
 }
 
 .banner {
@@ -52,5 +52,50 @@
     img {
         object-fit: cover;
     }
+}
+.lastUpdate {
+    display: inline-block;
+    padding:0;
+    margin:0.5rem 0;
+    font-style: italic;
+    font-size: 0.875rem;
     
+    time {
+        padding:0
+    }
+}
+.navPosts {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid white;
+    padding-top: 3.5rem;
+    margin: 5rem auto;
+    .nextPost p, .previousPost p {
+        font-size: 1.125rem;
+    }
+    .nextPost a, .previousPost a {
+        line-height: 1.5rem;
+        color: var(--pink-500);
+        font-weight: 600;
+        
+    }
+
+    .nextPost{
+        text-align: right;
+
+    }
+
+    .previousPost {
+        text-align: left;
+    }
+
+
+    // .previousPost a, .nextPost a{
+    //     &:hover{
+    //         a{
+    //             filter: brightness(0.8);
+    //         }
+    //     }
+    // }
+
 }
