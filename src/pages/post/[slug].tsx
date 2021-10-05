@@ -135,34 +135,34 @@ export default function Post(props: PostProps) {
           </div>
           <nav className={styles.navPosts}>
 
-            {prevPost && (
               <div className={styles.previousPost}>
-                <>
-                  <p>
-                    {prevPost?.title}
-                  </p>
-                  <Link href={`/post/${prevPost?.slug}`}>
-                    <a>
-                      Post Anterior
-                    </a>
-                  </Link>
-                </>
+                {prevPost && (
+                  <>
+                    <p>
+                      {prevPost?.title}
+                    </p>
+                    <Link href={`/post/${prevPost?.slug}`}>
+                      <a>
+                        Post Anterior
+                      </a>
+                    </Link>
+                  </>
+                )}
               </div>
-            )}
-            {nextPost && (
               <div className={styles.nextPost}>
-                <>
-                  <p>
-                    {nextPost?.title}
-                  </p>
-                  <Link href={`/post/${nextPost?.slug}`}>
-                    <a>
-                      Próximo post
-                    </a>
-                  </Link>
-                </>
+                {nextPost && (
+                  <>
+                    <p>
+                      {nextPost?.title}
+                    </p>
+                    <Link href={`/post/${nextPost?.slug}`}>
+                      <a>
+                        Próximo post
+                      </a>
+                    </Link>
+                  </>
+                )}
               </div>
-            )}
           </nav>
           <Comments/>
           {preview && (
@@ -202,28 +202,8 @@ export const getStaticProps:GetStaticProps = async ({params, preview = false, pr
   try {
     const prismic = getPrismicClient();
     const response = await prismic.getByUID('posts', `${params.slug}`, {ref: previewData?.ref ?? null});
-    const prevPost = (await prismic.query(
-      Prismic.Predicates.at('document.type', 'posts'),
-      {
-        pageSize : 3,
-        after : `${response.id}`,
-        orderings: '[posts.first_publication_date desc]',
-      }
-    ))?.results[0]
-
-    const nextPost = (await prismic.query(
-      Prismic.Predicates.at('document.type', 'posts'),
-      {
-        pageSize : 1,
-        after : `${response.id}`,
-        orderings: '[posts.first_publication_date]'
-      }
-    ))?.results[0]
-    
-    // console.log("response>>>>>>> ", response);
-    console.log("prevPost>>>>>>> ", prevPost);
-    console.log("nextPost>>>>>>> ", nextPost);
-    // console.log("response>>>>>>> ", response);
+    const prevPost = (await prismic.query(Prismic.Predicates.at('document.type', 'posts'), { pageSize : 1 , after : `${response.id}`, orderings: '[document.first_publication_date]'})).results[0] || false
+    const nextPost = (await prismic.query(Prismic.Predicates.at('document.type', 'posts'), { pageSize : 1 , after : `${response.id}`, orderings: '[document.first_publication_date desc]'})).results[0] || false
     
     const props = {
       post:{
@@ -234,17 +214,14 @@ export const getStaticProps:GetStaticProps = async ({params, preview = false, pr
         last_publication_date: response.last_publication_date,
         uid: response.uid
       },
-      prevPost: prevPost ?
-      {
-        title:prevPost?.data?.title,
-        slug: prevPost?.uid
-      }: false,
-      nextPost: nextPost?
-        {
-          title:nextPost?.data?.title,
-          slug: nextPost?.uid
-        }
-      : false,
+      prevPost: prevPost ? {
+        slug: prevPost?.uid,
+        title: prevPost.data?.title
+      }:false,
+      nextPost: nextPost ? {
+        slug: nextPost?.uid,
+        title: nextPost.data?.title
+      }:false,
       preview
     }
     console.log(props);

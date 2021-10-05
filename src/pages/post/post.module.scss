@@ -85,11 +85,10 @@
     .previousPost {
         text-align: left;
     }
-    // .previousPost a, .nextPost a{
-    //     &:hover{
-    //         a{
-    //             filter: brightness(0.8);
-    //         }
-    //     }
-    // }
+    .previousPost a, .nextPost a{
+        transition: 0.5s;
+        &:hover{
+            filter: brightness(0.8);
+        }
+    }
 }
