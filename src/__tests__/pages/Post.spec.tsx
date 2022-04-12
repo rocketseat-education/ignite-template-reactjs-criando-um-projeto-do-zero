@@ -33,16 +33,14 @@ interface GetStaticPropsResult {
   props: PostProps;
 }
 
-const mockedQueryReturn = {
-  results: [
-    {
-      uid: 'como-utilizar-hooks',
-    },
-    {
-      uid: 'criando-um-app-cra-do-zero',
-    },
-  ],
-};
+const mockedGetAllByTypeReturn = [
+  {
+    uid: 'como-utilizar-hooks',
+  },
+  {
+    uid: 'criando-um-app-cra-do-zero',
+  },
+]
 
 const mockedGetByUIDReturn = {
   uid: 'como-utilizar-hooks',
@@ -201,9 +199,9 @@ describe('Post', () => {
       getByUID: () => {
         return Promise.resolve(mockedGetByUIDReturn);
       },
-      query: () => {
-        return Promise.resolve(mockedQueryReturn);
-      },
+      getAllByType: () => {
+        return Promise.resolve(mockedGetAllByTypeReturn)
+      }
     });
   });
 

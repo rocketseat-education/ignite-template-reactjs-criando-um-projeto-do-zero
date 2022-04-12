@@ -29,7 +29,7 @@ interface GetStaticPropsResult {
   props: HomeProps;
 }
 
-const mockedQueryReturn = {
+const mockedGetByTypeReturn = {
   next_page: 'link',
   results: [
     {
@@ -79,8 +79,8 @@ describe('Home', () => {
     };
 
     mockedPrismic.mockReturnValue({
-      query: () => {
-        return Promise.resolve(mockedQueryReturn);
+      getByType: () => {
+        return Promise.resolve(mockedGetByTypeReturn);
       },
     });
 
