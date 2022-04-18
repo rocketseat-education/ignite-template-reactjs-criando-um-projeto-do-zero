@@ -30,15 +30,15 @@ interface PostProps {
 //   // TODO
 // }
 
-// export const getStaticPaths = async ({ previewData }) => {
-//   const prismic = getPrismicClient({ previewData });
+// export const getStaticPaths = async () => {
+//   const prismic = getPrismicClient({});
 //   const posts = await prismic.getByType(TODO);
 
 //   // TODO
 // };
 
-// export const getStaticProps = async ({ previewData, params }) => {
-//   const prismic = getPrismicClient({ previewData });
+// export const getStaticProps = async ({params }) => {
+//   const prismic = getPrismicClient({});
 //   const response = await prismic.getByUID(TODO);
 
 //   // TODO
