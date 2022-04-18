@@ -29,8 +29,8 @@ interface HomeProps {
 // }
 
 // export const getStaticProps = async () => {
-//   // const prismic = getPrismicClient();
-//   // const postsResponse = await prismic.query(TODO);
+//   // const prismic = getPrismicClient({});
+//   // const postsResponse = await prismic.getByType(TODO);
 
 //   // TODO
 // };
